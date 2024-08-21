@@ -15,7 +15,7 @@ export default function Home() {
         </h1>
 
         <p className={styles.description}>
-          Get started by editing <code>pages/index.js</code>
+          Created by Aashman Arora
         </p>
 
         <div className={styles.grid}>
