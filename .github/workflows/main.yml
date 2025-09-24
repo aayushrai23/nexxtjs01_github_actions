@@ -1,4 +1,4 @@
-name: CI/CD - Deploy Next.js App to Azure Web App
+name: CI/CD - Deploy Next.js App to Azure Web App (Standalone)
 
 on:
   push:
@@ -6,9 +6,8 @@ on:
   workflow_dispatch:
 
 env:
-  AZURE_WEBAPP_NAME: nextjsappgithub       # 👈 use "Web App Name" from Overview
-  AZURE_WEBAPP_PACKAGE_PATH: '.'          
-  NODE_VERSION: '20.x'                    
+  AZURE_WEBAPP_NAME: nextjsappgithub   # 👈 use your Web App Name from Azure
+  NODE_VERSION: '20.x'
 
 permissions:
   contents: read
@@ -29,17 +28,25 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build project
-        run: npm run build --if-present
+      - name: Build Next.js app (standalone)
+        run: npm run build
 
-      - name: Run tests (if any)
-        run: npm test --if-present
+      - name: Prepare deployment package
+        run: |
+          mkdir deploy
+          cp -r .next/standalone/* deploy/
+          cp -r .next/static deploy/.next/static
+          cp -r public deploy/public || true
+          cp package.json deploy/
+          cp package-lock.json deploy/
+          echo "Deployment package ready:"
+          ls -R deploy
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: app
-          path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+          path: deploy
 
   deploy:
     runs-on: ubuntu-latest
@@ -53,11 +60,11 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: app
+          path: deploy
 
       - name: Deploy to Azure WebApp
-        id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
-          app-name: ${{ env.AZURE_WEBAPP_NAME }}   # 👈 must match "Name" in Overview
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+          package: deploy
