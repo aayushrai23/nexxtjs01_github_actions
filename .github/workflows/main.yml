@@ -6,9 +6,9 @@ on:
   workflow_dispatch:
 
 env:
-  AZURE_WEBAPP_NAME: nextjsappgithub-a9gsd6cnc9agbaba   # 👈 Your actual App Service name
-  AZURE_WEBAPP_PACKAGE_PATH: '.'                        
-  NODE_VERSION: '20.x'                                 
+  AZURE_WEBAPP_NAME: nextjsappgithub       # 👈 use "Web App Name" from Overview
+  AZURE_WEBAPP_PACKAGE_PATH: '.'          
+  NODE_VERSION: '20.x'                    
 
 permissions:
   contents: read
@@ -58,6 +58,6 @@ jobs:
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
-          app-name: ${{ env.AZURE_WEBAPP_NAME }}
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}   # 👈 must match "Name" in Overview
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
           package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
