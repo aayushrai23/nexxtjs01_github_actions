@@ -1,7 +1,8 @@
 #!/bin/bash
 set -e
 
-# Go to deployment directory
+# Ensure deployment directory exists
+mkdir -p /var/www/html
 cd /var/www/html
 
 echo "Installing Node.js dependencies..."
