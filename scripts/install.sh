@@ -1,7 +1,4 @@
-#!/bin/bash
-set -e
-
-cd /var/www/html
+r/www/html
 
 echo "Installing Node.js dependencies..."
 
@@ -13,4 +10,11 @@ fi
 
 npm install -g pm2
 npm install
+
+
+
+
+
+
+
 
