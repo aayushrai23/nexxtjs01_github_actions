@@ -1,12 +1,15 @@
 version: 0.0
 os: linux
+
 files:
   - source: .
     destination: /var/www/html
+
 hooks:
-  BeforeInstall:
+  AfterInstall:
     - location: scripts/install.sh
       runas: ubuntu
+
   ApplicationStart:
     - location: scripts/start.sh
       runas: ubuntu
