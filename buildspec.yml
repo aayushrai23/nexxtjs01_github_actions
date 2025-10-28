@@ -5,18 +5,16 @@ phases:
     runtime-versions:
       nodejs: 18
     commands:
-      - echo "Installing Node.js dependencies..."
+      - echo "Installing dependencies..."
       - npm install
+
   build:
     commands:
-      - echo "Building Next.js application..."
+      - echo "Building Next.js app..."
       - npm run build
-  post_build:
-    commands:
-      - echo "Zipping build artifacts..."
-      - zip -r build-output.zip ./*
 
 artifacts:
   files:
-    - build-output.zip
-  discard-paths: yes
+    - '**/*'
+  base-directory: .
+  discard-paths: no
