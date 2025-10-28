@@ -1,22 +1,18 @@
 version: 0.0
 os: linux
-
 files:
   - source: /
     destination: /var/www/html
-
 hooks:
   BeforeInstall:
     - location: scripts/install.sh
       timeout: 300
-      runas: root
-
+      runas: ubuntu
   ApplicationStart:
     - location: scripts/start.sh
       timeout: 300
-      runas: root
-
+      runas: ubuntu
   ApplicationStop:
     - location: scripts/stop.sh
-      timeout: 300
-      runas: root
+      timeout: 180
+      runas: ubuntu
