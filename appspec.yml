@@ -1,13 +1,13 @@
 version: 0.0
 os: linux
 files:
-  - source: BuildArtifact/
+  - source: .
     destination: /var/www/html
 hooks:
   BeforeInstall:
-    - location: BuildArtifact/scripts/install.sh
+    - location: scripts/install.sh
       runas: ubuntu
   ApplicationStart:
-    - location: BuildArtifact/scripts/start.sh
+    - location: scripts/start.sh
       runas: ubuntu
 
