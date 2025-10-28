@@ -1,20 +1,19 @@
-r/www/html
+#!/bin/bash
+set -e
 
-echo "Installing Node.js dependencies..."
+echo "🚀 Starting installation process..."
 
-if ! command -v node >/dev/null 2>&1; then
-  echo "Node.js not found, installing..."
-  curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
-  sudo apt-get install -y nodejs
-fi
+# Ensure directory exists
+sudo mkdir -p /var/www/html
+sudo chown -R ubuntu:ubuntu /var/www/html
 
-npm install -g pm2
+cd /var/www/html
+
+echo "📦 Installing dependencies..."
 npm install
 
+echo "🏗️ Building the app..."
+npm run build
 
-
-
-
-
-
+echo "✅ Installation complete!"
 
