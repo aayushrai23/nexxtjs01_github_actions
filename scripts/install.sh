@@ -1,3 +1,9 @@
 #!/bin/bash
-cd /home/ubuntu/app/frontend
+set -e
+
+# Go to deployment directory
+cd /var/www/html
+
+echo "Installing Node.js dependencies..."
+npm install -g npm
 npm install

@@ -1,5 +1,6 @@
 version: 0.0
 os: linux
+
 files:
   - source: /
     destination: /var/www/html
@@ -9,10 +10,12 @@ hooks:
     - location: scripts/install.sh
       timeout: 300
       runas: root
-  AfterInstall:
+
+  ApplicationStart:
     - location: scripts/start.sh
       timeout: 300
       runas: root
+
   ApplicationStop:
     - location: scripts/stop.sh
       timeout: 300
